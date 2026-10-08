@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+    id 'com.diffplug.spotless' version '8.10.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+spotless {
+    java {
+        googleJavaFormat('1.36.1')
+    }
+    format 'misc', {
+        target 'src/main/java/com/example/twoformats/**/*.java'
+        trimTrailingWhitespace()
+    }
+}
+
+println "Configuring ${project.name}"

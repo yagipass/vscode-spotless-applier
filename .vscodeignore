@@ -1,0 +1,7 @@
+**
+!dist/extension.js
+!dist/spotless-applier-maven-extension.jar
+!dist/spotless-applier.gradle
+!package.json
+!README.md
+!LICENSE

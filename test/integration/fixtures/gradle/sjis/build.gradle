@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+    id 'com.diffplug.spotless' version '8.10.3'
+}
+
+repositories {
+    mavenCentral()
+}
+
+spotless {
+    encoding 'Shift_JIS'
+    java {
+        googleJavaFormat('1.36.1')
+    }
+}

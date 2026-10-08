@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "mocha"],
+    "noEmit": false,
+    "rootDir": ".",
+    "outDir": "../../out/test/integration",
+    "lib": ["ES2023", "ES2024.Promise", "ES2025.RegExp"]
+  },
+  "include": ["."]
+}

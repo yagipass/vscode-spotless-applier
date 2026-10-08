@@ -1,0 +1,82 @@
+{
+  "name": "vscode-spotless-applier",
+  "displayName": "Spotless Applier",
+  "description": "Format on save with the Spotless configuration of your Gradle or Maven build.",
+  "version": "0.0.1",
+  "publisher": "yagipass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yagipass/vscode-spotless-applier"
+  },
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "workspaceContains:**/pom.xml",
+    "workspaceContains:**/build.gradle",
+    "workspaceContains:**/build.gradle.kts",
+    "workspaceContains:**/settings.gradle",
+    "workspaceContains:**/settings.gradle.kts"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "Spotless Applier runs Gradle or Maven builds."
+    },
+    "virtualWorkspaces": {
+      "supported": false,
+      "description": "Spotless Applier runs Gradle or Maven builds on local files."
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "spotlessApplier.formatDocument",
+        "title": "Format Document",
+        "category": "Spotless"
+      }
+    ],
+    "configuration": {
+      "title": "Spotless Applier",
+      "properties": {
+        "spotlessApplier.maven.executable": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Maven executable used to run Spotless. When empty, `mvnd` on the PATH, then `mvnw` in the build root, then `mvn` on the PATH."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs && mvn -q -B -f inject/maven/pom.xml package && cp inject/maven/target/spotless-applier-maven-extension.jar inject/gradle/spotless-applier.gradle dist/",
+    "watch": "pnpm build && node esbuild.mjs --watch",
+    "vscode:prepublish": "pnpm build",
+    "lint": "eslint . && prettier --check .",
+    "typecheck": "tsc -p . && tsc -p test/integration --noEmit",
+    "test:unit": "vitest run --dir test/unit",
+    "test:integration": "pnpm build && tsc -p test/integration && node test/integration/run.mjs",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.19.0",
+    "@types/vscode": "1.100.0",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.2"
+  },
+  "packageManager": "pnpm@12.9.0"
+}

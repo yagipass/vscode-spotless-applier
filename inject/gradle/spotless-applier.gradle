@@ -1,0 +1,48 @@
+def properties = gradle.startParameter.projectProperties
+def stdinPath = properties['spotlessApplier.stdin']
+def stdoutPath = properties['spotlessApplier.stdout']
+def stderrPath = properties['spotlessApplier.stderr']
+
+def unclosable(OutputStream stream) {
+    new PrintStream(stream, true) {
+        void close() {
+            flush()
+        }
+    }
+}
+
+if (stdinPath != null && stdoutPath != null && stderrPath != null) {
+    def redirected = null
+    gradle.taskGraph.beforeTask { task ->
+        if (redirected == null && task.class.name.startsWith('com.diffplug.gradle.spotless.SpotlessTaskImpl')) {
+            def input = new FileInputStream(stdinPath)
+            def output = new FileOutputStream(stdoutPath, true)
+            def error = new FileOutputStream(stderrPath, true)
+            redirected = [
+                task: task,
+                systemIn: System.in,
+                systemOut: System.out,
+                systemErr: System.err,
+                files: [input, output, error],
+                out: unclosable(output),
+                err: unclosable(error),
+            ]
+            System.setIn(input)
+            System.setOut(redirected.out)
+            System.setErr(redirected.err)
+        }
+    }
+    gradle.taskGraph.afterTask { task ->
+        if (redirected != null && redirected.task.is(task)) {
+            System.setIn(redirected.systemIn)
+            System.setOut(redirected.systemOut)
+            System.setErr(redirected.systemErr)
+            def failed = redirected.out.checkError() | redirected.err.checkError()
+            redirected.files*.close()
+            if (failed) {
+                new FileOutputStream(stderrPath).close()
+            }
+            redirected = null
+        }
+    }
+}
