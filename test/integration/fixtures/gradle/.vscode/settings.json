@@ -1,5 +1,8 @@
 {
   "editor.codeActionsOnSave": {
     "source.fixAll.spotlessApplier": "explicit"
+  },
+  "[plaintext]": {
+    "files.insertFinalNewline": true
   }
 }

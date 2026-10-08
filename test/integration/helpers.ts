@@ -95,6 +95,27 @@ export function readDisk(uri: vscode.Uri): Promise<string> {
   return readFile(uri.fsPath, "utf8");
 }
 
+async function waitForSaveParticipants(): Promise<void> {
+  const file = workspacePath("TmpReady.txt");
+  await writeFile(file, "");
+  try {
+    for (let attempt = 0; attempt < 100; attempt++) {
+      const text = `attempt ${String(attempt)}`;
+      await save(await openWithUnsavedText(vscode.Uri.file(file), text));
+      if ((await readFile(file, "utf8")) === `${text}\n`) {
+        return;
+      }
+      await setTimeout(100);
+    }
+    assert.fail("VS Code did not start running save participants");
+  } finally {
+    await vscode.commands.executeCommand("workbench.action.closeAllEditors");
+    await rm(file, { force: true });
+  }
+}
+
+suiteSetup(waitForSaveParticipants);
+
 function spotlessLog(): string {
   const dir = process.env["SPOTLESS_APPLIER_TEST_LOGS"];
   assert.ok(dir, "SPOTLESS_APPLIER_TEST_LOGS is not set");
