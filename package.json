@@ -15,6 +15,13 @@
   "categories": [
     "Formatters"
   ],
+  "keywords": [
+    "java",
+    "formatter",
+    "spotless",
+    "gradle",
+    "maven"
+  ],
   "main": "./dist/extension.js",
   "activationEvents": [
     "workspaceContains:**/pom.xml",
