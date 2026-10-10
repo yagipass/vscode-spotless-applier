@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.yagipass</groupId>
-  <artifactId>spotless-applier-maven-extension</artifactId>
+  <artifactId>spotless-for-gradle-and-maven-extension</artifactId>
   <version>0.0.1</version>
   <packaging>jar</packaging>
 

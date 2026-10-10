@@ -1,4 +1,4 @@
-package io.github.yagipass.spotlessapplier;
+package io.github.yagipass.spotlessforgradleandmaven;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -14,7 +14,7 @@ import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.execution.ExecutionEvent;
 import org.apache.maven.plugin.MojoExecution;
 
-@Named("spotlessApplierIo")
+@Named("spotlessForGradleAndMavenIo")
 @Singleton
 public class IoRedirectSpy extends AbstractEventSpy {
 
@@ -42,9 +42,9 @@ public class IoRedirectSpy extends AbstractEventSpy {
       return;
     }
     Properties properties = executionEvent.getSession().getUserProperties();
-    String stdin = properties.getProperty("spotlessApplier.stdin");
-    String stdout = properties.getProperty("spotlessApplier.stdout");
-    String stderr = properties.getProperty("spotlessApplier.stderr");
+    String stdin = properties.getProperty("spotlessForGradleAndMaven.stdin");
+    String stdout = properties.getProperty("spotlessForGradleAndMaven.stdout");
+    String stderr = properties.getProperty("spotlessForGradleAndMaven.stderr");
     if (stdin == null || stdout == null || stderr == null) {
       return;
     }

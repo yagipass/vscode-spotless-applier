@@ -13,7 +13,9 @@ import { findMavenExecutable, mavenArgs, runMaven } from "../../src/maven";
 let base: string;
 
 beforeEach(() => {
-  base = mkdtempSync(path.join(tmpdir(), "spotless-applier-maven-"));
+  base = mkdtempSync(
+    path.join(tmpdir(), "spotless-for-gradle-and-maven-maven-"),
+  );
 });
 
 afterEach(() => {
@@ -35,7 +37,7 @@ describe("mavenArgs", () => {
     const args = mavenArgs(
       { tool: "maven", root: "/repo", module: "/repo/core/api" },
       "/repo/core/api/src/A.java",
-      "/ext/spotless-applier-maven-extension.jar",
+      "/ext/spotless-for-gradle-and-maven-extension.jar",
       files,
     );
     expect(args).toEqual([
@@ -46,13 +48,13 @@ describe("mavenArgs", () => {
       "-pl",
       "core/api",
       "--define",
-      "maven.ext.class.path=/ext/spotless-applier-maven-extension.jar",
+      "maven.ext.class.path=/ext/spotless-for-gradle-and-maven-extension.jar",
       "--define",
-      "spotlessApplier.stdin=/tmp/in",
+      "spotlessForGradleAndMaven.stdin=/tmp/in",
       "--define",
-      "spotlessApplier.stdout=/tmp/out",
+      "spotlessForGradleAndMaven.stdout=/tmp/out",
       "--define",
-      "spotlessApplier.stderr=/tmp/err",
+      "spotlessForGradleAndMaven.stderr=/tmp/err",
       "--define",
       "spotlessIdeHook=/repo/core/api/src/A.java",
       "--define",

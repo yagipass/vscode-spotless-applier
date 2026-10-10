@@ -1,5 +1,5 @@
 {
-  description = "vscode-spotless-applier dev shell";
+  description = "vscode-spotless-for-gradle-and-maven dev shell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

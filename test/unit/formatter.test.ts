@@ -15,7 +15,9 @@ import type { Codec } from "../../src/hook";
 let workspace: string;
 
 beforeEach(() => {
-  workspace = mkdtempSync(path.join(tmpdir(), "spotless-applier-formatter-"));
+  workspace = mkdtempSync(
+    path.join(tmpdir(), "spotless-for-gradle-and-maven-formatter-"),
+  );
   writeFileSync(path.join(workspace, "pom.xml"), "");
 });
 

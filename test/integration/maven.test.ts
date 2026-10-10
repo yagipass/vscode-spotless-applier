@@ -14,7 +14,8 @@ import {
   workspacePath,
 } from "./helpers";
 
-const expectedExecutable = process.env["SPOTLESS_APPLIER_TEST_MAVEN"] ?? "";
+const expectedExecutable =
+  process.env["SPOTLESS_FOR_GRADLE_AND_MAVEN_TEST_MAVEN"] ?? "";
 
 suite(`Maven single module (${expectedExecutable})`, () => {
   commonSuite({

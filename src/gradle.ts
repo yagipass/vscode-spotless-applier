@@ -47,7 +47,7 @@ export async function runGradle(
 ): Promise<BuildResult> {
   const args = await gradleArgs(request.file, request.hookFiles, initScript);
   request.signal.throwIfAborted();
-  const cancellationKey = `spotlessApplier-${randomUUID()}`;
+  const cancellationKey = `spotlessForGradleAndMaven-${randomUUID()}`;
   const output: Uint8Array[] = [];
   const build = api.runBuild({
     projectFolder: request.build.root,

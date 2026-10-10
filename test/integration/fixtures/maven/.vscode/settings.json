@@ -1,6 +1,6 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.spotlessApplier": "explicit"
+    "source.fixAll.spotlessForGradleAndMaven": "explicit"
   },
   "[plaintext]": {
     "files.insertFinalNewline": true

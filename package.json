@@ -1,13 +1,13 @@
 {
-  "name": "vscode-spotless-applier",
-  "displayName": "Spotless Applier",
+  "name": "vscode-spotless-for-gradle-and-maven",
+  "displayName": "Spotless for Gradle and Maven",
   "description": "Format on save with the Spotless configuration of your Gradle or Maven build.",
   "version": "0.0.1",
   "publisher": "yagipass",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yagipass/vscode-spotless-applier"
+    "url": "https://github.com/yagipass/vscode-spotless-for-gradle-and-maven"
   },
   "engines": {
     "vscode": "^1.100.0"
@@ -33,25 +33,25 @@
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": false,
-      "description": "Spotless Applier runs Gradle or Maven builds."
+      "description": "Spotless for Gradle and Maven runs Gradle or Maven builds."
     },
     "virtualWorkspaces": {
       "supported": false,
-      "description": "Spotless Applier runs Gradle or Maven builds on local files."
+      "description": "Spotless for Gradle and Maven runs Gradle or Maven builds on local files."
     }
   },
   "contributes": {
     "commands": [
       {
-        "command": "spotlessApplier.formatDocument",
+        "command": "spotlessForGradleAndMaven.formatDocument",
         "title": "Format Document",
         "category": "Spotless"
       }
     ],
     "configuration": {
-      "title": "Spotless Applier",
+      "title": "Spotless for Gradle and Maven",
       "properties": {
-        "spotlessApplier.maven.executable": {
+        "spotlessForGradleAndMaven.maven.executable": {
           "type": "string",
           "default": "",
           "markdownDescription": "Maven executable used to run Spotless. When empty, `mvnd` on the PATH, then `mvnw` in the build root, then `mvn` on the PATH."
@@ -60,7 +60,7 @@
     }
   },
   "scripts": {
-    "build": "node esbuild.mjs && mvn -q -B -f inject/maven/pom.xml package && cp inject/maven/target/spotless-applier-maven-extension.jar inject/gradle/spotless-applier.gradle dist/",
+    "build": "node esbuild.mjs && mvn -q -B -f inject/maven/pom.xml package && cp inject/maven/target/spotless-for-gradle-and-maven-extension.jar inject/gradle/spotless-for-gradle-and-maven.gradle dist/",
     "watch": "pnpm build && node esbuild.mjs --watch",
     "vscode:prepublish": "pnpm build",
     "lint": "eslint . && prettier --check .",

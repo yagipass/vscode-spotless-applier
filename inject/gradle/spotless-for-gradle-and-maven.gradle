@@ -1,7 +1,7 @@
 def properties = gradle.startParameter.projectProperties
-def stdinPath = properties['spotlessApplier.stdin']
-def stdoutPath = properties['spotlessApplier.stdout']
-def stderrPath = properties['spotlessApplier.stderr']
+def stdinPath = properties['spotlessForGradleAndMaven.stdin']
+def stdoutPath = properties['spotlessForGradleAndMaven.stdout']
+def stderrPath = properties['spotlessForGradleAndMaven.stderr']
 
 def unclosable(OutputStream stream) {
     new PrintStream(stream, true) {
