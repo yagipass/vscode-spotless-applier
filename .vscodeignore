@@ -2,6 +2,9 @@
 !dist/extension.js
 !dist/spotless-for-gradle-and-maven-extension.jar
 !dist/spotless-for-gradle-and-maven.gradle
+!images/marketplace.png
+!images/command-dark.svg
+!images/command-light.svg
 !package.json
 !README.md
 !LICENSE

@@ -4,6 +4,7 @@
   "description": "Format on save with the Spotless configuration of your Gradle or Maven build.",
   "version": "0.0.1",
   "publisher": "yagipass",
+  "icon": "images/marketplace.png",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -45,7 +46,11 @@
       {
         "command": "spotlessForGradleAndMaven.formatDocument",
         "title": "Format Document",
-        "category": "Spotless"
+        "category": "Spotless",
+        "icon": {
+          "light": "images/command-light.svg",
+          "dark": "images/command-dark.svg"
+        }
       }
     ],
     "configuration": {
