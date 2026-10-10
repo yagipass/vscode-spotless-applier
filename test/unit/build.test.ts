@@ -19,7 +19,9 @@ function source(relative: string): string {
 }
 
 beforeEach(() => {
-  workspace = mkdtempSync(path.join(tmpdir(), "spotless-applier-build-"));
+  workspace = mkdtempSync(
+    path.join(tmpdir(), "spotless-for-gradle-and-maven-build-"),
+  );
 });
 
 afterEach(() => {

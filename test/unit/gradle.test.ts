@@ -16,7 +16,9 @@ let base: string;
 let file: string;
 
 beforeEach(() => {
-  base = mkdtempSync(path.join(tmpdir(), "spotless-applier-gradle-"));
+  base = mkdtempSync(
+    path.join(tmpdir(), "spotless-for-gradle-and-maven-gradle-"),
+  );
   file = path.join(base, "A.java");
   writeFileSync(file, "");
 });
@@ -56,14 +58,18 @@ function request(signal = new AbortController().signal) {
 
 describe("gradleArgs", () => {
   it("routes Spotless's input and output through files via the init script, so build script output never ends up in the source", async () => {
-    const args = await gradleArgs(file, files, "/ext/spotless-applier.gradle");
+    const args = await gradleArgs(
+      file,
+      files,
+      "/ext/spotless-for-gradle-and-maven.gradle",
+    );
     expect(args).toEqual(
       expect.arrayContaining([
         "--init-script",
-        "/ext/spotless-applier.gradle",
-        "-PspotlessApplier.stdin=/tmp/in",
-        "-PspotlessApplier.stdout=/tmp/out",
-        "-PspotlessApplier.stderr=/tmp/err",
+        "/ext/spotless-for-gradle-and-maven.gradle",
+        "-PspotlessForGradleAndMaven.stdin=/tmp/in",
+        "-PspotlessForGradleAndMaven.stdout=/tmp/out",
+        "-PspotlessForGradleAndMaven.stderr=/tmp/err",
         "-PspotlessIdeHookUseStdIn",
         "-PspotlessIdeHookUseStdOut",
       ]),

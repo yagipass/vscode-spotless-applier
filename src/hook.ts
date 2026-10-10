@@ -28,9 +28,9 @@ export interface BuildResult {
 
 export function hookProperties(source: string, hookFiles: HookFiles): string[] {
   return [
-    `spotlessApplier.stdin=${hookFiles.stdin}`,
-    `spotlessApplier.stdout=${hookFiles.stdout}`,
-    `spotlessApplier.stderr=${hookFiles.stderr}`,
+    `spotlessForGradleAndMaven.stdin=${hookFiles.stdin}`,
+    `spotlessForGradleAndMaven.stdout=${hookFiles.stdout}`,
+    `spotlessForGradleAndMaven.stderr=${hookFiles.stderr}`,
     `spotlessIdeHook=${source}`,
     "spotlessIdeHookUseStdIn",
     "spotlessIdeHookUseStdOut",
@@ -43,7 +43,9 @@ export async function runWithHookFiles(
   codec: Codec,
   run: (hookFiles: HookFiles) => Promise<BuildResult>,
 ): Promise<HookOutput> {
-  const dir = await mkdtemp(path.join(tmpdir(), "spotless-applier-"));
+  const dir = await mkdtemp(
+    path.join(tmpdir(), "spotless-for-gradle-and-maven-"),
+  );
   try {
     const hookFiles: HookFiles = {
       stdin: path.join(dir, "stdin"),

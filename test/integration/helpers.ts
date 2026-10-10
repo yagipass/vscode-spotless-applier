@@ -117,10 +117,10 @@ async function waitForSaveParticipants(): Promise<void> {
 suiteSetup(waitForSaveParticipants);
 
 function spotlessLog(): string {
-  const dir = process.env["SPOTLESS_APPLIER_TEST_LOGS"];
-  assert.ok(dir, "SPOTLESS_APPLIER_TEST_LOGS is not set");
+  const dir = process.env["SPOTLESS_FOR_GRADLE_AND_MAVEN_TEST_LOGS"];
+  assert.ok(dir, "SPOTLESS_FOR_GRADLE_AND_MAVEN_TEST_LOGS is not set");
   const file = readdirSync(dir, { recursive: true, encoding: "utf8" }).find(
-    (name) => name.endsWith("Spotless Applier.log"),
+    (name) => name.endsWith("Spotless for Gradle and Maven.log"),
   );
   return file === undefined ? "" : readFileSync(path.join(dir, file), "utf8");
 }
@@ -167,7 +167,9 @@ export function commonSuite(options: {
       placeholder("TmpCommand"),
     );
     const document = await openWithUnsavedText(uri, unformatted("TmpCommand"));
-    await vscode.commands.executeCommand("spotlessApplier.formatDocument");
+    await vscode.commands.executeCommand(
+      "spotlessForGradleAndMaven.formatDocument",
+    );
     assert.equal(document.getText(), googleFormatted("TmpCommand"));
     assert.ok(document.isDirty);
     assert.equal(await readDisk(uri), placeholder("TmpCommand"));
@@ -215,7 +217,8 @@ export function commonSuite(options: {
           kind,
         )
       ).filter(
-        (action) => action.kind?.value === "source.fixAll.spotlessApplier",
+        (action) =>
+          action.kind?.value === "source.fixAll.spotlessForGradleAndMaven",
       );
     assert.equal((await listed()).length, 0);
     const menu = await listed("source");

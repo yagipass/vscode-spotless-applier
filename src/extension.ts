@@ -3,8 +3,9 @@ import { SpotlessFormatter } from "./formatter";
 import { type GradleApi, runGradle } from "./gradle";
 import { runMaven } from "./maven";
 
-const codeActionKind =
-  vscode.CodeActionKind.SourceFixAll.append("spotlessApplier");
+const codeActionKind = vscode.CodeActionKind.SourceFixAll.append(
+  "spotlessForGradleAndMaven",
+);
 const gradleExtensionId = "vscjava.vscode-gradle";
 
 class SpotlessCodeAction extends vscode.CodeAction {
@@ -14,13 +15,18 @@ class SpotlessCodeAction extends vscode.CodeAction {
 }
 
 export function activate(context: vscode.ExtensionContext): void {
-  const log = vscode.window.createOutputChannel("Spotless Applier", {
-    log: true,
-  });
-  const extensionJar = context.asAbsolutePath(
-    "dist/spotless-applier-maven-extension.jar",
+  const log = vscode.window.createOutputChannel(
+    "Spotless for Gradle and Maven",
+    {
+      log: true,
+    },
   );
-  const initScript = context.asAbsolutePath("dist/spotless-applier.gradle");
+  const extensionJar = context.asAbsolutePath(
+    "dist/spotless-for-gradle-and-maven-extension.jar",
+  );
+  const initScript = context.asAbsolutePath(
+    "dist/spotless-for-gradle-and-maven.gradle",
+  );
   let missingGradleReported = false;
   const loadGradleApi = async (): Promise<GradleApi> => {
     const extension =
@@ -29,7 +35,7 @@ export function activate(context: vscode.ExtensionContext): void {
       if (!missingGradleReported) {
         missingGradleReported = true;
         void vscode.window.showInformationMessage(
-          `Spotless Applier needs the "Gradle for Java" extension (${gradleExtensionId}) to format files in Gradle builds.`,
+          `Spotless for Gradle and Maven needs the "Gradle for Java" extension (${gradleExtensionId}) to format files in Gradle builds.`,
         );
       }
       throw new Error(`${gradleExtensionId} is not installed`);
@@ -44,7 +50,7 @@ export function activate(context: vscode.ExtensionContext): void {
         runMaven(request, {
           extensionJar,
           configuredExecutable: vscode.workspace
-            .getConfiguration("spotlessApplier")
+            .getConfiguration("spotlessForGradleAndMaven")
             .get("maven.executable", ""),
         }),
     },
@@ -133,7 +139,7 @@ export function activate(context: vscode.ExtensionContext): void {
       { providedCodeActionKinds: [codeActionKind] },
     ),
     vscode.commands.registerCommand(
-      "spotlessApplier.formatDocument",
+      "spotlessForGradleAndMaven.formatDocument",
       formatDocument,
     ),
   );

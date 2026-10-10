@@ -21,7 +21,7 @@ To try it in VS Code, package and install it:
 
 ```sh
 pnpm package
-code --install-extension vscode-spotless-applier-*.vsix
+code --install-extension vscode-spotless-for-gradle-and-maven-*.vsix
 ```
 
 ## Checks

@@ -75,7 +75,7 @@ export async function runMaven(
   );
   if (executable === undefined) {
     throw new Error(
-      "No Maven executable found: install mvnd or mvn, add mvnw to the build root, or set spotlessApplier.maven.executable",
+      "No Maven executable found: install mvnd or mvn, add mvnw to the build root, or set spotlessForGradleAndMaven.maven.executable",
     );
   }
   const args = mavenArgs(
