@@ -67,12 +67,13 @@
     "typecheck": "tsc -p . && tsc -p test/integration --noEmit",
     "test:unit": "vitest run --dir test/unit",
     "test:integration": "pnpm build && tsc -p test/integration && node test/integration/run.mjs",
-    "package": "vsce package --no-dependencies"
+    "package": "vsce package --no-dependencies",
+    "sync:runtime-types": "node scripts/sync-runtime-types.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.19.0",
+    "@types/node": "^20.19.43",
     "@types/vscode": "1.100.0",
     "@vscode/test-cli": "^0.0.15",
     "@vscode/test-electron": "^3.1.0",
